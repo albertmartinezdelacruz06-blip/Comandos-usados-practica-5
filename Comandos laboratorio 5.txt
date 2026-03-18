@@ -1,0 +1,20 @@
+Comandos laboratorio 5
+
+mkdir -p ~/datos_practica
+touch ~/datos_practica/archivo{1..100}.txt
+
+rsync -avz ~/datos_practica/ usuario@IP_REMOTO:/home/usuario/copia_practica/
+
+nano ~/sincronizar.sh
+
+#!/bin/bash
+# Script de sincronización automática
+rsync -avz --delete /home/usuario/datos_practica/ usuario@IP_REMOTO:/home/usuario/copia_practica/
+
+chmod +x ~/sincronizar.sh
+
+* * * * * /home/usuario/sincronizar.sh >> /home/usuario/log_rsync.txt 2>&1
+
+touch ~/datos_practica/archivo_prueba_final.txt
+
+ls /home/usuario/copia_practica/ | grep "archivo_prueba_final"
